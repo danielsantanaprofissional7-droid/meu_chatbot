@@ -41,10 +41,11 @@ def chat():
 
     try:
         # Aqui substituímos o seu input() pela chamada da API
-        resposta = client.chat.completions.create(
-            model=MODELO,
+       response = client.chat.completions.create(
+            model="nousresearch/hermes-3-llama-3.1-405b",
             messages=[
-                {"role": "user", "content": pergunta}
+                {"role": "system", "content": "Você é um assistente virtual útil e amigável. Você deve responder SEMPRE em português do Brasil."},
+                {"role": "user", "content": user_message}
             ]
         )
 
