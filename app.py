@@ -41,18 +41,19 @@ def chat():
 
     try:
         # Aqui substituímos o seu input() pela chamada da API
-       response = client.chat.completions.create(
+       # Aqui substituímos o seu input() pela chamada da API
+        response = client.chat.completions.create(
             model="nousresearch/hermes-3-llama-3.1-405b",
             messages=[
                 {"role": "system", "content": "Você é um assistente virtual útil e amigável. Você deve responder SEMPRE em português do Brasil."},
-                {"role": "user", "content": user_message}
+                {"role": "user", "content": pergunta} # <-- CORREÇÃO 1: 'pergunta' no lugar de 'user_message'
             ]
         )
 
         # Extrai o texto da resposta da IA
-        texto_resposta = resposta.choices[0].message.content
+        texto_resposta = response.choices[0].message.content # <-- CORREÇÃO 2: 'response' no lugar de 'resposta'
         return jsonify({"reply": texto_resposta})
-
+        
     except Exception as e:
         return jsonify({"error": f"Erro na IA: {str(e)}"}), 500
 
